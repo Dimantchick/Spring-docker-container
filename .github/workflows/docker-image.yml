@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  IMAGE_ID: 'ghcr.io/${{ vars.REPOSITORY }}/spring-base-image:'
+
+jobs:
+
+  build-docker-images:
+    strategy:
+      matrix:
+        version: [ 11, 17, 21 ]
+    permissions:
+      contents: read
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Log into GitHub Container Registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Build the Docker image 21
+      run: docker build . --file Dockerfile --tag ${{ env.IMAGE_ID }}${{ matrix.version }} --build-arg JAVA_VERSION=${{ matrix.version }}
+
+    - name: Push image to GitHub Container Registry 21
+      run: docker push ${{ env.IMAGE_ID }}${{ matrix.version }}
