@@ -1,3 +1,9 @@
+LABEL maintainer="Dmitrii Reshetinskii"
+LABEL release-date="2025-01-25"
+LABEL description="Base docker image for Spring boot containers. \
+Based on bellsoft/liberica-openjdk-alpine-musl image. \
+Running container with javauser (non root)."
+
 ARG JAVA_VERSION
 
 FROM bellsoft/liberica-openjdk-alpine-musl:${JAVA_VERSION}
