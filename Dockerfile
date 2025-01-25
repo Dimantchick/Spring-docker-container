@@ -1,12 +1,11 @@
-LABEL maintainer="Dmitrii Reshetinskii"
-LABEL release-date="2025-01-25"
-LABEL description="Base docker image for Spring boot containers. \
-Based on bellsoft/liberica-openjdk-alpine-musl image. \
-Running container with javauser (non root)."
-
 ARG JAVA_VERSION
 
 FROM bellsoft/liberica-openjdk-alpine-musl:${JAVA_VERSION}
+
+LABEL org.opencontainers.image.source=https://github.com/Dimantchick/Spring-docker-container
+LABEL org.opencontainers.image.description="Base docker image for Spring boot containers. \
+                                           Based on bellsoft/liberica-openjdk-alpine-musl image. \
+                                           Running container with javauser (non root)."
 
 RUN apk add --update --no-cache curl jq && \
     rm -rf /var/cache/* && \
