@@ -54,7 +54,7 @@ jobs:
           password: ${{secrets.GITHUB_TOKEN}}
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ env.IMAGE_ID }}${{ matrix.version }}-fonts --build-arg JAVA_VERSION=${{ matrix.version }}
+        run: docker build . --file Dockerfile-fonts --tag ${{ env.IMAGE_ID }}${{ matrix.version }}-fonts --build-arg JAVA_VERSION=${{ matrix.version }}
 
       - name: Push image to GitHub Container Registry
         run: docker push ${{ env.IMAGE_ID }}${{ matrix.version }}-fonts
