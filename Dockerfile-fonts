@@ -19,7 +19,7 @@ RUN apk add --update --no-cache fontconfig ttf-dejavu curl jq && \
     rm -rf /var/lib/apk
 
 # Application user
-RUN addgroup -S java && adduser -S javauser -G java \
+RUN addgroup -S java && adduser -S javauser -G java && \
     mkdir /home/javauser/.fonts && chown -R javauser:java /home/javauser/.fonts && \
     chown -R 1000:1000 /usr/share/fonts && \
     mkdir /workspace && chown -R javauser:java /workspace && \
