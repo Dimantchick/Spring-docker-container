@@ -58,3 +58,27 @@ jobs:
 
       - name: Push image to GitHub Container Registry
         run: docker push ${{ env.IMAGE_ID }}${{ matrix.version }}-fonts
+
+  build-youtube-dl-docker-images:
+    strategy:
+      matrix:
+        version: [ 17 ]
+    permissions:
+      contents: read
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile-youtube-dl --tag ${{ env.IMAGE_ID }}${{ matrix.version }}-youtube-dl --build-arg JAVA_VERSION=${{ matrix.version }}
+
+      - name: Push image to GitHub Container Registry
+        run: docker push ${{ env.IMAGE_ID }}${{ matrix.version }}-fonts
