@@ -81,4 +81,4 @@ jobs:
         run: docker build . --file Dockerfile-youtube-dl --tag ${{ env.IMAGE_ID }}${{ matrix.version }}-youtube-dl --build-arg JAVA_VERSION=${{ matrix.version }}
 
       - name: Push image to GitHub Container Registry
-        run: docker push ${{ env.IMAGE_ID }}${{ matrix.version }}-fonts
+        run: docker push ${{ env.IMAGE_ID }}${{ matrix.version }}-youtube-dl
